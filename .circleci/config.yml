@@ -4,10 +4,6 @@ jobs:
     docker:
       - image: node
     working_directory: /repo
-    branches:
-      only:
-      - master
-      - staging
     steps:
       - checkout
       - run: yarn install
