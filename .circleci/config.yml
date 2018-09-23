@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node
+    working_directory: /repo
+    branches:
+      only:
+      - master
+      - staging
+    steps:
+      - checkout
+      - run: yarn install
+      - setup_remote_docker
+      - run: docker login -u $username -p $password
+      - run:
+          name: "Build Image"
+          command: |
+            docker build -t annallzz/uploadimg .
+            docker push annallzz/uploadimg:latest
