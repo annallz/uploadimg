@@ -18,3 +18,11 @@ jobs:
           command: |
             docker build -t annallzz/uploadimg .
             docker push annallzz/uploadimg:latest
+            docker run --rm -it \
+            -e CATTLE_ACCESS_KEY="$5DD17BA5DB3B352169F6" \
+            -e CATTLE_SECRET_KEY="$wG9TqXs5x34kf7RosKCKd6mWGQSw6TjTh8mo4FHo" \
+            -e CATTLE_URL="$http://206.189.146.132:8080/v1" \
+            etlweather/gaucho upgrade $1s10
+            --imageUuid 'docker:annallzz/uploadimg'
+            --batch_size 3 --start_first \
+            --auto_complete --timeout 600
